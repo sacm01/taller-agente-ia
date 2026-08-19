@@ -12,8 +12,8 @@ Documentación clara para facilitar la adaptación y escalabilidad.
 
 📦 Instalación
 bash
-git clone https://github.com/tu-usuario/tu-repo-agentes-ia.git
-cd tu-repo-agentes-ia
+git clone https://github.com/sacm01/taller-agentes-ia.git
+cd taller-agentes-ia
 pip install -r requirements.txt
 ▶️ Uso
 bash
