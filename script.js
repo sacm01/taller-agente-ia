@@ -4,7 +4,6 @@ const chatBox = document.getElementById("chat-box");
 
 let intentos = 0;
 
-// Habilitar botón solo si hay texto
 input.addEventListener("input", () => {
   enviarBtn.disabled = input.value.trim() === "";
 });
@@ -16,10 +15,9 @@ function agregarMensaje(texto, tipo) {
   mensaje.className = `mensaje ${tipo}`;
   mensaje.innerText = texto;
   chatBox.appendChild(mensaje);
-  chatBox.scrollTop = chatBox.scrollHeight; // auto-scroll
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Enviar mensaje del usuario y consultar IA
 async function enviarMensaje() {
   const pregunta = input.value.trim();
   if (!pregunta) return;
@@ -29,7 +27,6 @@ async function enviarMensaje() {
   input.value = "";
   enviarBtn.disabled = true;
 
-  // Guardar mensaje en Supabase vía backend
   await fetch("/api/mensajes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -46,9 +43,7 @@ async function enviarMensaje() {
       body: JSON.stringify({ pregunta })
     });
 
-    if (!respuesta.ok) {
-      throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
-    }
+    if (!respuesta.ok) throw new Error(`Error ${respuesta.status}`);
 
     const data = await respuesta.json();
 
@@ -72,7 +67,6 @@ async function enviarMensaje() {
   }
 }
 
-// Al cargar la página, recuperar historial desde Supabase
 async function cargarHistorial() {
   const respuesta = await fetch("/api/mensajes");
   const { data } = await respuesta.json();

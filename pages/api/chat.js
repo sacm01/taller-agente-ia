@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
   try {
     const respuesta = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent?key=${process.env.API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -19,3 +19,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
+
