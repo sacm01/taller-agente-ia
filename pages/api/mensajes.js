@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('mensajes')
       .insert([{ usuario, mensaje, tipo }]);
-    if (error) return res.status(500).json({ error });
+    if (error) return res.status(500).json({ error: error.message });
     return res.status(200).json({ data });
   }
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       .from('mensajes')
       .select('*')
       .order('fecha', { ascending: true });
-    if (error) return res.status(500).json({ error });
+    if (error) return res.status(500).json({ error: error.message });
     return res.status(200).json({ data });
   }
 
