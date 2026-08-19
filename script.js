@@ -43,9 +43,12 @@ async function enviarMensaje() {
       body: JSON.stringify({ pregunta })
     });
 
-    if (!respuesta.ok) throw new Error(`Error ${respuesta.status}`);
-
     const data = await respuesta.json();
+
+    if (data.error) {
+      agregarMensaje(`Error: ${data.error}`, "ia");
+      return;
+    }
 
     if (data.candidates && data.candidates.length > 0) {
       const textoIA = data.candidates[0].content.parts[0].text;
@@ -62,7 +65,7 @@ async function enviarMensaje() {
       agregarMensaje("No se recibió respuesta del modelo.", "ia");
     }
   } catch (error) {
-    agregarMensaje(`pensando... (error temporal, intento ${intentos})`, "ia");
+    agregarMensaje(`Error de conexión: ${error.message}`, "ia");
     setTimeout(enviarMensaje, 5000);
   }
 }
