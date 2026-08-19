@@ -14,17 +14,7 @@ export default async function handler(req, res) {
     );
 
     if (!respuesta.ok) {
-      // Manejo de errores comunes
-      if (respuesta.status === 404) {
-        return res.status(404).json({ error: "Modelo no encontrado. Usa gemini-1.5-flash o gemini-1.5-pro." });
-      }
-      if (respuesta.status === 429) {
-        return res.status(429).json({ error: "Límite de peticiones alcanzado. Intenta de nuevo en unos segundos." });
-      }
-      if (respuesta.status === 503) {
-        return res.status(503).json({ error: "Servicio temporalmente no disponible. Reintenta más tarde." });
-      }
-      return res.status(respuesta.status).json({ error: "Error en la API de Gemini." });
+      return res.status(respuesta.status).json({ error: `Error ${respuesta.status}` });
     }
 
     const data = await respuesta.json();
